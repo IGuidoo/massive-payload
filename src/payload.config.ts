@@ -1,6 +1,5 @@
 import path from 'path'
 
-import { payloadCloud } from '@payloadcms/plugin-cloud'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { webpackBundler } from '@payloadcms/bundler-webpack'
 import { slateEditor } from '@payloadcms/richtext-slate'
@@ -8,14 +7,15 @@ import { buildConfig } from 'payload/config'
 
 // plugins
 import seoPlugin from '@payloadcms/plugin-seo';
+// import nestedDocs from '@payloadcms/plugin-nested-docs'
 
 // collections
 import Users from './collections/Users'
 import BlogPosts from './collections/BlogPosts'
 import Media from './collections/Media'
 import Categories from './collections/Categories'
-import nestedDocs from '@payloadcms/plugin-nested-docs'
 import Tags from './collections/Tags'
+import Authors from './collections/Author'
 
 export default buildConfig({
   admin: {
@@ -29,6 +29,7 @@ export default buildConfig({
     Media,
     Categories,
     Tags,
+    Authors
   ],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
@@ -38,7 +39,7 @@ export default buildConfig({
   },
   plugins: [
     // nestedDocs({
-    //   collections: ['blog-posts'],
+    //   collections: ['tags'],
     // }),
     seoPlugin({
       collections: [

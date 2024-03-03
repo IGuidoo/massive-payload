@@ -36,7 +36,7 @@ const Users: CollectionConfig = {
       label: 'Profile Picture',
       type: 'upload',
       relationTo: 'media',
-      required: true,
+      // required: true,
     },
     // Email added by default
     // Add more fields as needed

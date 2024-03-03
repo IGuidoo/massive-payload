@@ -1,12 +1,16 @@
 import { CollectionConfig } from "payload/types";
 import { Hero } from "../../blocks/hero";
 import { slugField } from "../../fields/slug";
+import { RichText } from "../../blocks/richText";
 
 const BlogPosts: CollectionConfig = {
     slug: "blog-posts",
     labels: {
         singular: "Blog Post",
         plural: "Blog Posts",
+    },
+    admin: {
+        useAsTitle: "title",
     },
     access: {
         read: () => true
@@ -54,7 +58,8 @@ const BlogPosts: CollectionConfig = {
                             label: "Layout",
                             type: "blocks",
                             blocks: [
-                                Hero
+                                Hero,
+                                RichText
                             ]
                         },
                     ]
@@ -66,7 +71,7 @@ const BlogPosts: CollectionConfig = {
                         {
                             name: 'relatedPosts',
                             type: 'relationship',
-                            relationTo: 'blog-posts',                            
+                            relationTo: 'blog-posts',
                             hasMany: true,
                             filterOptions: ({ id }) => {
                                 return {
@@ -98,12 +103,15 @@ const BlogPosts: CollectionConfig = {
             },
         },
         {
-            name: 'authors',
+            name: 'writers',
             type: 'relationship',
-            relationTo: 'users',
+            relationTo: 'writers',
             hasMany: true,
+
             admin: {
                 position: 'sidebar',
+
+                // labelField: 'fullName',
             },
         },
         {

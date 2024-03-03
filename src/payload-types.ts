@@ -13,6 +13,7 @@ export interface Config {
     media: Media;
     categories: Category;
     tags: Tag;
+    writers: Writer;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -28,7 +29,7 @@ export interface User {
   lastName: string;
   fullName: string;
   bioGraphy: string;
-  profilePicture: string | Media;
+  profilePicture?: string | Media | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -66,18 +67,28 @@ export interface BlogPost {
   timeToRead: number;
   heroImage?: string | Media | null;
   layout?:
-    | {
-        title: string;
-        heroImage?: string | Media | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'hero';
-      }[]
+    | (
+        | {
+            title: string;
+            heroImage?: string | Media | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            content: {
+              [k: string]: unknown;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'RichText';
+          }
+      )[]
     | null;
   relatedPosts?: (string | BlogPost)[] | null;
   categories: string | Category;
   tags?: (string | null) | Tag;
-  authors?: (string | User)[] | null;
+  writers?: (string | Writer)[] | null;
   publishedAt: string;
   slug?: string | null;
   meta?: {
@@ -106,6 +117,22 @@ export interface Category {
 export interface Tag {
   id: string;
   title: string;
+  categories: string | Category;
+  slug?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "writers".
+ */
+export interface Writer {
+  id: string;
+  firstName: string;
+  lastName: string;
+  fullName: string;
+  bioGraphy: string;
+  profilePicture?: string | Media | null;
   slug?: string | null;
   updatedAt: string;
   createdAt: string;

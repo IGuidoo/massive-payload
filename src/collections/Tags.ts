@@ -15,6 +15,15 @@ const Tags: CollectionConfig = {
             type: 'text',
             required: true,
         },
+        {
+            name: 'categories',
+            type: 'relationship',
+            relationTo: 'categories',
+            required: true,
+            admin: {
+                position: 'sidebar',
+            },
+        },
         slugField()
     ],
 }
